@@ -1,0 +1,62 @@
+# 模型配置
+model:
+  name: "ImprovedViT"
+  img_size: 224
+  patch_size: 16
+  in_channels: 3
+  embed_dim: 768
+  depth: 12
+  num_heads: 12
+  mlp_ratio: 4
+  qkv_bias: True
+  dropout_rate: 0.1
+  attn_dropout_rate: 0.0
+  num_classes: 1000
+
+# 训练配置
+training:
+  batch_size: 64
+  num_epochs: 300
+  learning_rate: 0.0001
+  weight_decay: 0.05
+  warmup_epochs: 20
+  label_smoothing: 0.1
+  auto_augment: True
+  random_erase: 0.25
+  cutmix: True
+  mixup: True
+  clip_grad_norm: 1.0
+
+# 数据配置
+data:
+  train_dir: "data/processed/train"
+  val_dir: "data/processed/val"
+  test_dir: "data/processed/test"
+  num_workers: 8
+  pin_memory: True
+
+# 优化器配置
+optimizer:
+  type: "AdamW"
+  beta1: 0.9
+  beta2: 0.999
+  eps: 1.0e-8
+
+# 学习率调度器配置
+scheduler:
+  type: "CosineAnnealingLR"
+  min_lr: 1.0e-5
+  warmup_lr: 1.0e-6
+
+# 日志和保存配置
+logging:
+  log_dir: "experiments/logs"
+  save_freq: 10
+  log_freq: 100
+  val_freq: 1
+
+# 硬件配置
+hardware:
+  gpu_ids: [0]
+  num_workers: 8
+  pin_memory: True 
